@@ -55,9 +55,9 @@ subgraph "Docker"
     end
 end
 Client((Client)) -->|:80| Nginx;
-Nginx -->|if /api| Rust;
+Nginx -->|if /api :8080| Rust;
 Nginx -->|else| React;
-Rust --> MySQL;
+Rust -->|:3306| MySQL;
 ```
 
 ## Setup
