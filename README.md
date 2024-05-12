@@ -43,15 +43,10 @@ flowchart LR;
 
 subgraph "Docker"
     MySQL{{MySQL}}
-    subgraph "Backend"
-        Rust{{Rust}}
-    end
-    subgraph "Frontend"
-        Nginx{{Nginx}};
-        subgraph "React"
-            Index[index.html]
-            JS[app.js]
-        end
+    Rust{{Rust}}
+    Nginx{{Nginx}};
+    subgraph "React"
+        Index[index.html]
     end
 end
 Client((Client)) -->|:80| Nginx;
