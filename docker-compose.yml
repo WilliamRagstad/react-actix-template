@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+    frontend:
+        build: ./frontend
+        ports:
+            - "80:80"
+        networks:
+            - localnet
+
+    backend:
+        build: ./backend
+        volumes:
+            - .env:/usr/local/bin/.env
+        depends_on:
+            - mysql_db
+        entrypoint: docker-entrypoint.sh
+        command: [ "expert_exchange" ]
+        networks:
+            - localnet
+
+    mysql_db:
+        image: 'mysql:latest'
+        restart: always
+        ports:
+            - 127.0.0.1:3306:3306 # Only expose to localhost
+        environment:
+            MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+            MYSQL_DATABASE: '${MYSQL_DATABASE}'
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - localnet
+
+networks:
+    localnet:
+
+
+volumes:
+    mysql_data:
