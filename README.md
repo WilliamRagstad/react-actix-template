@@ -62,10 +62,8 @@ Rust --> MySQL;
 
 ## Setup
 
-1. Install [Rust](https://www.rust-lang.org/tools/install)
-2. Install [Node.js](https://nodejs.org/en/download/)
-3. Install [Docker](https://docs.docker.com/get-docker/)
-4. Create `.env` file in the root directory and add *(at least)* the following:
+1. Install [Rust](https://www.rust-lang.org/tools/install), [Node.js](https://nodejs.org/en/download/), and [Docker](https://docs.docker.com/get-docker/).
+2. Create `.env` file in the root directory and add *(at least)* the following:
 
     ```sh
     MYSQL_ROOT_PASSWORD="<long_secure_password_here_1234>"
@@ -77,25 +75,16 @@ Rust --> MySQL;
     DEV_DATABASE_URL="mysql://root:${MYSQL_ROOT_PASSWORD}@${DEV_MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
     ```
 
-5. Install the Diesel CLI: `cargo install diesel_cli --no-default-features --features mysql`
-6. Setup Diesel: `diesel setup`. This will create:
+3. Install the Diesel CLI: `cargo install diesel_cli --no-default-features --features mysql`
+4. Setup Diesel: `diesel setup`. This will create:
    - `migrations/` directory
    - `diesel.toml` file
    - `schema.rs` file.
-7. Create a initial migration: `diesel migration generate initial`. New migration folder in `migrations/`.
-
-## Running
-
-To run the project, use the following commands:
-
-```sh
-# Start the project
-docker-compose up --build -d
-# Stop the project
-docker-compose down -v
-```
-
-The project will be available at `http://localhost:80`.
+5. Create a initial migration: `diesel migration generate initial`. New migration folder in `migrations/`.
+6. Run the migration: `diesel migration run`.
+7. Run the project: `docker-compose up --build -d`.
+8. The project will be available at http://localhost:80/.
+9. To stop the project: `docker-compose down -v`.
 
 ## Development
 
