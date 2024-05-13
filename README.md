@@ -12,7 +12,6 @@ The project is built using the following technology stack:
 - Database: **MySQL**
 - Backend: **Rust**
   - Framework: **Actix Web**
-  - DMS/ORM: **Diesel**
 - Frontend: **Nginx**
   - Framework: **React** *(Compiled)*
   - Proxy:
@@ -70,16 +69,10 @@ Rust -->|:3306| MySQL;
     DEV_DATABASE_URL="mysql://root:${MYSQL_ROOT_PASSWORD}@${DEV_MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
     ```
 
-3. Install the Diesel CLI: `cargo install diesel_cli --no-default-features --features mysql`
-4. Setup Diesel: `diesel setup`. This will create:
-   - `migrations/` directory
-   - `diesel.toml` file
-   - `schema.rs` file.
-5. Create a initial migration: `diesel migration generate initial`. New migration folder in `migrations/`.
-6. Run the migration: `diesel migration run`.
-7. Run the project: `docker-compose up --build -d`.
-8. The project will be available at http://localhost:80/.
-9. To stop the project: `docker-compose down -v`.
+3. Edit the `backend/docker-entrypoint.sh` file to add any additional setup commands.
+4. Run the project: `docker-compose up --build -d`.
+5. The project will be available at <http://localhost:80/>.
+6. To stop the project: `docker-compose down -v`.
 
 ## Development
 

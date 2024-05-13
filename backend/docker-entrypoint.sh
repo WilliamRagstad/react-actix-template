@@ -14,10 +14,11 @@ until mysqladmin ping -h "mysql_db" --silent; do
 done
 echo "[*] mysql_db is ready!"
 
-# Run Diesel migrations
-echo "[*] Running migrations..."
-diesel migration run
-# Or diesel setup
+#*****************************************************************
+#*                                                               *
+#*  Perform any database migrations or other startup tasks here  *
+#*                                                               *
+#*****************************************************************
 
 # Start the main application
 echo "[*] Starting the application..."

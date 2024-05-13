@@ -9,7 +9,6 @@ edition = "2021"
 actix-web = "4.5.1"
 dotenvy = "0.15.7"
 mysql = "20.0"
-diesel = "2.1.6"
 
 
 [profile.release]

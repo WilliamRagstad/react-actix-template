@@ -4,7 +4,12 @@ use std::env;
 
 use crate::util;
 
-pub fn connect() -> Result<mysql::Conn, String> {
+/// Connect to the MySQL database.
+///
+/// # Returns
+/// The connection to the MySQL database if successful.
+/// Panics if the connection fails.
+pub fn connect() -> mysql::Conn {
     dotenv().ok();
     let db_url = {
         if util::is_development_mode() {
@@ -16,13 +21,7 @@ pub fn connect() -> Result<mysql::Conn, String> {
         }
     };
     assert!(!db_url.is_empty(), "DATABASE_URL must not be empty");
-    assert!(
-        db_url.starts_with("mysql://"),
-        "DATABASE_URL must start with mysql://"
-    );
-    assert!(db_url.contains('@'), "DATABASE_URL must contain @");
-    assert!(db_url.contains('/'), "DATABASE_URL must contain /");
 
     println!("Connecting to: {}", db_url);
-    mysql::Conn::new(db_url).map_err(|err| format!("Failed to connect to MySQL: {}", err))
+    mysql::Conn::new(db_url).expect("Failed to connect to MySQL.")
 }

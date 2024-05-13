@@ -7,9 +7,6 @@ COPY . .
 # Build the project
 RUN cargo build --release
 
-# Set up the database
-RUN cargo install diesel_cli --no-default-features --features mysql
-
 # =========== PRODUCTION IMAGE ===========
 FROM debian:buster-slim as production
 WORKDIR /usr/local/bin
@@ -19,7 +16,6 @@ RUN apt-get update && \
 	apt-get install -y default-mysql-client default-libmysqlclient-dev ca-certificates dos2unix file && \
 	rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /usr/local/cargo/bin/diesel .
 COPY --from=builder /usr/src/${APP_BIN_NAME}/target/release/${APP_BIN_NAME} .
 COPY docker-entrypoint.sh .
 
