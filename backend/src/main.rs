@@ -15,15 +15,14 @@ async fn main() -> std::io::Result<()> {
         conn: Mutex::new(db::connect()),
     });
 
+    let host_addr = "localhost:8080";
+    println!("Starting server at http://{}", host_addr);
     HttpServer::new(move || {
         App::new()
             .app_data(conn_state.clone())
-            .service(web::scope("api/auth").configure(auth::endpoints))
             .route("/hello", web::get().to(endpoints::hello))
     })
-    .bind("127.0.0.1:8080")?
+    .bind(host_addr)?
     .run()
-    .await;
-
-    println!("Server running at http://localhost:8080");
+    .await
 }
